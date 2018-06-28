@@ -1,0 +1,14 @@
+version: '1.0'
+steps:
+  BuildingConfluentDockerImage:
+    title: Building Confluent Docker Image
+    type: build
+    image_name: parkhubprime/ph-confluent-kafka
+    working_directory: ./confluent
+    dockerfile: Dockerfile
+  PushingConfluentImageToDockerRegistry:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: '${{BuildingConfluentDockerImage}}'
+    tag: '${{CONFLUENT_VERSION}}'
+    registry: quay-parkhubprime
